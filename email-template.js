@@ -16,8 +16,8 @@ const sender = (template, userEmail) => {
                 secure: true, // true for 465, false for other ports
                 service: "Gmail",
                 auth: {
-                    user: process.env.user, // generated ethereal user
-                    pass: process.env.pass // generated ethereal password
+                    user: process.env.USER, // generated ethereal user
+                    pass: process.env.PASS // generated ethereal password
                 }
                 
         });
