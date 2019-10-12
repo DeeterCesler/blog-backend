@@ -18,6 +18,10 @@ const secret = "secret $tash";
 //     });
 // });
 
+router.get("test", (req, res) => {
+    res.status(200).send("Test passes - server on.");
+})
+
 router.post('/verify', withAuth, async (req, res) => {
     const token = req.headers["authorization"];
     testObj = {message: "test"}
