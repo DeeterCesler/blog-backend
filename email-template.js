@@ -3,7 +3,7 @@ const credentials = require("./env");
 var templateZero = require("./email-templates/templateZero.js");
 var templateOne = require("./email-templates/templateOne");
 
-const sender = (template, userEmail) => {
+const sender = (template, userEmail, contactName) => {
     
     async function main(){
 
@@ -24,9 +24,9 @@ const sender = (template, userEmail) => {
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-        from: '"Your mum 👻" <deeter.cesler@gmail.com>', // sender address
+        from: '"FollowUp (beta)" <deeter.cesler@gmail.com>', // sender address
         to: userEmail, // list of receivers
-        subject: "Hello ✔", // Subject line
+        subject: `Time to reach out to ${contactName}`, // Subject line
         text: "Hello world?", // plain text body
         html:  template
         // html body
@@ -52,7 +52,7 @@ const email = (userEmail, contactEmail, contactName, contactSummary) => {
     //     //     sender(templateOne("Deeter"), contactEmail);
     //     //     break;
     //     default:
-            sender(templateZero(userEmail, contactEmail, contactName, contactSummary), userEmail);
+            sender(templateZero(userEmail, contactEmail, contactName, contactSummary), userEmail, contactName);
     // }
 }
 
