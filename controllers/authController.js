@@ -18,7 +18,7 @@ const secret = "secret $tash";
 //     });
 // });
 
-router.get("test", (req, res) => {
+router.get("/test", (req, res) => {
     res.status(200).send("Test passes - server on.");
 })
 
