@@ -16,12 +16,14 @@ const sender = (template, userEmail) => {
                 secure: true, // true for 465, false for other ports
                 service: "Gmail",
                 auth: {
-                    user: credentials.user, // generated ethereal user
-                    pass: credentials.pass // generated ethereal password
+                    user: process.env.user, // generated ethereal user
+                    pass: process.env.pass // generated ethereal password
                 }
                 
         });
-    
+
+        console.log("USER: ", process.env.user)
+        console.log("PASS: ", process.env.pass)
         // send mail with defined transport object
         let info = await transporter.sendMail({
         from: '"Your mum 👻" <deeter.cesler@gmail.com>', // sender address
