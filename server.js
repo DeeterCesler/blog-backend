@@ -30,7 +30,7 @@ store.on('error', function(error) {
 });
 
 const corsOptions = {
-    origin: process.env.REACT_APP_ADDRESS,
+    origin: "*",
     // origin: "http://localhost:3001",
     credentials: true,
     optionsSuccessStatus: 200 
