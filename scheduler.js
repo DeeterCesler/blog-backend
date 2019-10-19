@@ -50,7 +50,7 @@ const scheduler = async () => {
             try{
                 email(allContacts[i].user, allContacts[i].contactEmail, allContacts[i].contactName, allContacts[i].contactSummary);
                 
-                if(allContacts[i].stage < 5 || allContacts[i].contactStage < 5) {
+                // if(allContacts[i].stage < 5 || allContacts[i].contactStage < 5) {
                     try{
                         let nextStage = allContacts[i].stage;
                         nextStage++; // this is ugly but for some reason putting ++ on the line above wasn't working
@@ -61,11 +61,11 @@ const scheduler = async () => {
                     } catch(err){
                         console.log("the less than 5 shit didn't update. Also here's the error: ", err);
                     }
-                }
+                // }
                 
-                else if(allContacts[i].stage == 5 || allContacts[i].contactStage == 5){
-                    updateContactReminderDate(allContacts[i]);
-                }
+                // else if(allContacts[i].stage == 5 || allContacts[i].contactStage == 5){
+                //     updateContactReminderDate(allContacts[i]);
+                // }
             } catch(err) {
                 console.log(err)
             }
@@ -110,7 +110,7 @@ const updateContactReminderDate = async (contact) => {
 // cron.schedule('* * * * *', () => {
 
 // This runs the task every hour:
-cron.schedule('0 * * * *', () => {
+cron.schedule('0 0 * * *', () => {
     console.log(" ------------------ RUNNING ONCE ------------------ ");
     scheduler();
 });
