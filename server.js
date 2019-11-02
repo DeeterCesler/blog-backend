@@ -30,7 +30,7 @@ store.on('error', function(error) {
 });
 
 const corsOptions = {
-    origin: "*",
+    origin: "http://followup-frontend-v1.herokuapp.com",
     // origin: "http://localhost:3001",
     credentials: true,
     optionsSuccessStatus: 200 
