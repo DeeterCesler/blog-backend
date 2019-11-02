@@ -29,17 +29,17 @@ store.on('error', function(error) {
     console.log(error);
 });
 
-// const corsOptions = {
-//     origin: process.env.REACT_APP_ADDRESS,
-//     // origin: "http://localhost:3001",
-//     allowedHeaders: "*",
-//     requestHeaders: "*",
-//     credentials: true,
-//     optionsSuccessStatus: 200 
-//   }
+const corsOptions = {
+    origin: process.env.REACT_APP_ADDRESS,
+    // origin: "http://localhost:3001",
+    // allowedHeaders: "*",
+    // requestHeaders: "*",
+    credentials: true,
+    optionsSuccessStatus: 200 
+  }
   
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '');
 //     res.header('Access-Control-Allow-Headers', '*');
