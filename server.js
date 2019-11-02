@@ -32,6 +32,7 @@ store.on('error', function(error) {
 const corsOptions = {
     origin: process.env.REACT_APP_ADDRESS,
     // origin: "http://localhost:3001",
+    allowedHeaders: ["Accept","Content-Type","X-Requested-With","x-api-key"],
     credentials: true,
     optionsSuccessStatus: 200 
   }
