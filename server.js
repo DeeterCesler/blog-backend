@@ -30,19 +30,19 @@ store.on('error', function(error) {
 });
 
 const corsOptions = {
-    origin: "http://followup-frontend-v1.herokuapp.com",
+    origin: process.env.REACT_APP_ADDRESS,
     // origin: "http://localhost:3001",
     credentials: true,
     optionsSuccessStatus: 200 
   }
   
 // Middleware
-// app.use(cors(corsOptions));
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-    next();
-  });
+app.use(cors(corsOptions));
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '');
+//     res.header('Access-Control-Allow-Headers', '*');
+//     next();
+//   });
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
