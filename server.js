@@ -40,11 +40,15 @@ const corsOptions = {
   
 // Middleware
 app.use(cors(corsOptions));
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '');
-//     res.header('Access-Control-Allow-Headers', '*');
-//     next();
-//   });
+// https redirect
+if(process.env.NODE_ENV === 'production') {
+    app.use((req, res, next) => {
+      if (req.header('x-forwarded-proto') !== 'https')
+        res.redirect(`https://${req.header('host')}${req.url}`)
+      else
+        next()
+    })
+}
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
