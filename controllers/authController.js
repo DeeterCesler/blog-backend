@@ -49,7 +49,7 @@ router.post('/register', async (req, res) => {
         // Create an object to put into our database into the User Model
         const userEntry = {};
         userEntry.password = passwordHash;
-        userEntry.email = req.body.email;
+        userEntry.email = req.body.email.toLowerCase();
         userEntry.name = req.body.name;
         const user = await User.create(userEntry);
         user.save();
@@ -75,7 +75,7 @@ router.post('/login', async (req, res) => {
     const {email, password } = req.body
     //first query the database to see if the user exists
     try {
-        const foundUser = await User.findOne({email: req.body.email});
+        const foundUser = await User.findOne({email: req.body.email.toLowerCase()});
         if(foundUser){
             if(bcrypt.compareSync(req.body.password, foundUser.password)){
                 // req.session.logged = true;
