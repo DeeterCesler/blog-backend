@@ -56,6 +56,7 @@ const scheduler = async () => {
                         nextStage++; // this is ugly but for some reason putting ++ on the line above wasn't working
                         console.log("is it even creating this variable correctly? ", nextStage)
                         const updatedContact = await Contact.findByIdAndUpdate(allContacts[i]._id, {stage: nextStage});
+                        updateContactReminderDate(allContacts[i]);
                         // updatedContact.save();
                         await console.log("this the updated contact, but less than 5: ", updatedContact);
                     } catch(err){
