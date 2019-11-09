@@ -84,7 +84,7 @@ const updateContactReminderDate = async (contact) => {
             return new Date(today.getFullYear(),today.getMonth(),today.getDate()+ addedTime);
         }
         console.log("this is the contact BEFORE updating: ", contact)
-        contact.repeatingReminder = await projectedDate(parseInt(contact.repeatingReminderRhythm) * 30);
+        contact.repeatingReminder = await projectedDate(parseInt(contact.repeatingReminderRhythm));
         const updatedContact = await Contact.findByIdAndUpdate(contact._id,contact);
         updatedContact.save();
         await console.log("this is the contact AFTER updating: ", updatedContact);
