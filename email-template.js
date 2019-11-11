@@ -24,10 +24,10 @@ const sender = (template, userEmail, contactName) => {
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-        from: '"FollowUp (beta)" <deeter.cesler@gmail.com>', // sender address
+        from: '"FollowUp (beta)" <openwellsllc@gmail.com>', // sender address
         to: userEmail, // list of receivers
         subject: `Time to reach out to ${contactName}`, // Subject line
-        text: "Hello world?", // plain text body
+        text: "Opportunity to build a connection", // plain text body
         html:  template
         // html body
         });
