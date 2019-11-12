@@ -110,7 +110,7 @@ const updateContactReminderDate = async (contact) => {
 // cron.schedule('* * * * *', () => {
 
 // This runs the task every hour:
-cron.schedule('* * * * *', () => {
+cron.schedule('0 0 * * *', () => {
     console.log(" ------------------ RUNNING ONCE ------------------ ");
     scheduler();
 });
