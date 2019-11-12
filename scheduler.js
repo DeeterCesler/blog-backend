@@ -53,11 +53,10 @@ const scheduler = async () => {
                 // if(allContacts[i].stage < 5 || allContacts[i].contactStage < 5) {
                     try{
                         let nextStage = allContacts[i].stage;
-                        nextStage++; // this is ugly but for some reason putting ++ on the line above wasn't working
-                        console.log("is it even creating this variable correctly? ", nextStage)
-                        const updatedContact = await Contact.findByIdAndUpdate(allContacts[i]._id, {stage: nextStage});
-                        updateContactReminderDate(allContacts[i]);
-                        // updatedContact.save();
+                        ++nextStage; // this is ugly but for some reason putting ++ on the line above wasn't working
+                        allContacts[i].stage = nextStage;
+                        const updatedContact = await Contact.findByIdAndUpdate(allContacts[i]._id, allContacts[i]);
+                        await updateContactReminderDate(allContacts[i]);
                         await console.log("this the updated contact, but less than 5: ", updatedContact);
                     } catch(err){
                         console.log("the less than 5 shit didn't update. Also here's the error: ", err);
@@ -86,7 +85,7 @@ const updateContactReminderDate = async (contact) => {
         console.log("this is the contact BEFORE updating: ", contact)
         contact.repeatingReminder = await projectedDate(parseInt(contact.repeatingReminderRhythm));
         const updatedContact = await Contact.findByIdAndUpdate(contact._id,contact);
-        updatedContact.save();
+        await updatedContact.save();
         await console.log("this is the contact AFTER updating: ", updatedContact);
     } catch(err) {
         console.log("Could not update contact");
@@ -111,7 +110,7 @@ const updateContactReminderDate = async (contact) => {
 // cron.schedule('* * * * *', () => {
 
 // This runs the task every hour:
-cron.schedule('0 0 * * *', () => {
+cron.schedule('* * * * *', () => {
     console.log(" ------------------ RUNNING ONCE ------------------ ");
     scheduler();
 });
