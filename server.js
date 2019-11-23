@@ -31,7 +31,7 @@ store.on('error', function(error) {
 
 const corsOptions = {
     origin: process.env.REACT_APP_ADDRESS,
-    credentials: true,
+    // credentials: true,
     optionsSuccessStatus: 200 
   }
   
