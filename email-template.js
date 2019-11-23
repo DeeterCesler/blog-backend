@@ -44,16 +44,8 @@ const sender = (template, userEmail, contactName) => {
 }
 
 const email = (userEmail, contactEmail, contactName, contactSummary) => {
-    // switch(num){
-    //     // case 1:
-    //     //     sender(templateZero(1), contactEmail);
-    //     //     break;
-    //     // case 2:
-    //     //     sender(templateOne("Deeter"), contactEmail);
-    //     //     break;
-    //     default:
-            sender(templateZero(userEmail, contactEmail, contactName, contactSummary), userEmail, contactName);
-    // }
+    // no other templates at the moment, but a future switch-case could go here depending on contact stage
+    sender(templateZero(userEmail, contactEmail, contactName, contactSummary), userEmail, contactName);
 }
 
 module.exports = email;

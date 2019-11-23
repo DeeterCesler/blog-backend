@@ -3,7 +3,7 @@ const Contact = require("./models/contact");
 const email = require("./email-template");
 
 
-console.log("THIS SHIT IS ON");
+console.log("SCHEDULER RUNNING");
 
 /* ---- THE PLAN ---- */
 // Search all contacts for EVERYONE
@@ -42,11 +42,7 @@ const scheduler = async () => {
             default:
                 dateToCheck = allContacts[i]["repeatingReminder"];
         }
-        console.log("test shit: ", allContacts[i], dateToCheck);
         if(dateToCheck <= currentDate){ // if today is the day to email on each contact
-            console.log("great timing");
-            console.log("what kind of user info we got? ", allContacts[i])
-            console.log(allContacts[i].user, " or ", allContacts[i].email)
             try{
                 email(allContacts[i].user, allContacts[i].contactEmail, allContacts[i].contactName, allContacts[i].contactSummary);
                 
@@ -57,9 +53,8 @@ const scheduler = async () => {
                         allContacts[i].stage = nextStage;
                         const updatedContact = await Contact.findByIdAndUpdate(allContacts[i]._id, allContacts[i]);
                         await updateContactReminderDate(allContacts[i]);
-                        await console.log("this the updated contact, but less than 5: ", updatedContact);
                     } catch(err){
-                        console.log("the less than 5 shit didn't update. Also here's the error: ", err);
+                        console.log("Error found: ", err);
                     }
                 // }
                 
@@ -72,7 +67,7 @@ const scheduler = async () => {
         }
     }
     // send email to $OWNER about $CONTACT reminding them of $TOPIC and that this should be email follow-up number $STAGE
-    console.log('running a task every sec');
+    console.log('Checking for emails to send');
 }
 
 

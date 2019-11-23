@@ -32,7 +32,6 @@ router.get("/:email", checkForToken, async (req, res) => {
 });
 
 router.post("/new", checkForToken, async (req, res) => {
-  console.log(req.body)
   var submittedContact = req.body;
   var today = new Date(); //Today's Date
   projectedDate = async (addedTime) => {
@@ -49,15 +48,10 @@ router.post("/new", checkForToken, async (req, res) => {
   }
   submittedContact["repeatingReminderRhythm"] = await parseInt(submittedContact.repeatingReminder);
   submittedContact["repeatingReminder"] = await projectedDate(parseInt(submittedContact.repeatingReminder) * parseInt(submittedContact["repeatingReminderRhythm"]));
-  console.log("NEW USER????")
   const dog = await withAuth(req, res)
-  console.log("WHAT'S THE EMAIL??", req.email);
-  console.log("this dog: ", dog);
   submittedContact["user"] = req.email;
-  console.log("THAT WAS THE USER");
   const newContact = await Contact.create(submittedContact);
   newContact.save();
-  console.log("check for new contact: ", newContact);
   res.header(
       {"Access-Control-Allow-Origin": "*"}
   )
@@ -98,7 +92,7 @@ router.delete("/:id", checkForToken, async (req, res) => {
   await Contact.findByIdAndDelete(req.params.id);
   res.json({
       status: 200,
-      message: "shit deleted"
+      message: "contact deleted"
   })
 })
 

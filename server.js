@@ -31,9 +31,6 @@ store.on('error', function(error) {
 
 const corsOptions = {
     origin: process.env.REACT_APP_ADDRESS,
-    // origin: "http://localhost:3001",
-    // allowedHeaders: "*",
-    // requestHeaders: "*",
     credentials: true,
     optionsSuccessStatus: 200 
   }
@@ -61,44 +58,6 @@ app.use((req, res, next) => {
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(session({
-    secret: 'secret $tash',
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-    },
-    store: store,
-    // Boilerplate options, see:
-    // * https://www.npmjs.com/package/express-session#resave
-    // * https://www.npmjs.com/package/express-session#saveuninitialized
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(async (req, res, next) => {
-    res.locals.user = req.session.userId || {};
-    next();
-})
-
-// app.get("/", async (req, res) => {
-//     if(req.session.logged){
-//         if(bcrypt.compareSync(req.body.password, foundUser.password)){
-//             req.session.logged = true;
-//             req.session.email = foundUser.email;
-//             req.session.name = foundUser.name;
-//             req.session.userId = foundUser._id;
-//             console.log("here's the user: ", req.session.email);
-//             res.send({
-//                 status: 200,
-//                 data: foundUser   
-//             })
-//             console.log("done logged in")
-//         }
-//     } else {
-//         res.send({
-//             status: 404,
-//             message: "No cookie found"
-//         })
-//     }
-// })
 
 
 // Routing
