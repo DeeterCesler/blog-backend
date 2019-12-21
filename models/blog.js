@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const contactSchema = new mongoose.Schema({
+const blogSchema = new mongoose.Schema({
     user: {required: true, type: String},
-    contactName: {required: true, type: String},
-    contactEmail: {required: true, type: String},
-    contactSummary: {required: true, type: String},
+    blogName: {required: true, type: String},
+    blogEmail: {required: true, type: String},
+    blogSummary: {required: true, type: String},
     firstReminder: Date,
     secondReminder: Date,
     thirdReminder: Date,
@@ -17,4 +17,4 @@ const contactSchema = new mongoose.Schema({
     stage: Number, // 1-5, representing which reminder they're on. 5 is the final stage (for now)
 })
 
-module.exports = mongoose.model('Contact', contactSchema);
+module.exports = mongoose.model('blog', blogSchema);

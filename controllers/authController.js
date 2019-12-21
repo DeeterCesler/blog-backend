@@ -54,11 +54,11 @@ router.post('/register', async (req, res) => {
         const user = await User.create(userEntry);
         user.save();
         // initializing the session here
-        req.session.username = req.body.username;
-        req.session.name = req.body.name;
-        req.session.logged   = true;
-        req.session.message  = '';
-        req.session.userId = user._id;
+        // req.session.username = req.body.username;
+        // req.session.name = req.body.name;
+        // req.session.logged   = true;
+        // req.session.message  = '';
+        // req.session.userId = user._id;
         console.log(userEntry);
         res.send({
             status: 200,

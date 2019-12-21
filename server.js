@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-const contactController = require("./controllers/contactsController");
+const blogController = require("./controllers/blogsController");
 const userController = require("./controllers/usersController");
 const authController = require("./controllers/authController")
 const session = require('express-session');
@@ -13,7 +13,7 @@ const checkForToken = require("./middleware/authToken");
 require('./db/db');
 require("dotenv").config();
 // simply requiring it apparently runs the scheduler
-require("./scheduler");
+// require("./scheduler");
 
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI,
@@ -59,7 +59,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Routing
-app.use("/contact", contactController);
+app.use("/blog", blogController);
 app.use("/auth", authController);
 app.use("/user", requireLogin, userController);
 
