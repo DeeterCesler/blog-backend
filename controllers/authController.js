@@ -5,22 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const withAuth = require("../middleware/authToken");
 const secret = "secret $tash";
-// router.get("/register", (req, res) => {
-//     res.render("auth/register.ejs", {
-//         user: null
-//     });
-// });
 
-// router.get("/login", (req, res) => {
-//     res.render("auth/login.ejs", {
-//         message: req.session.message,
-//         user: null
-//     });
-// });
-
-router.get("/test", (req, res) => {
-    res.status(200).send("Test passes - server on.");
-})
 
 router.post('/verify', withAuth, async (req, res) => {
     const token = req.headers["authorization"];
@@ -40,12 +25,8 @@ router.post('/verify', withAuth, async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try{
-        console.log("got here")
-        console.log(req.body)
         const password = req.body.password;
-        console.log(password + " ");
         const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(12));
-        console.log(password + " " + passwordHash);
         // Create an object to put into our database into the User Model
         const userEntry = {};
         userEntry.password = passwordHash;
@@ -53,13 +34,6 @@ router.post('/register', async (req, res) => {
         userEntry.name = req.body.name;
         const user = await User.create(userEntry);
         user.save();
-        // initializing the session here
-        // req.session.username = req.body.username;
-        // req.session.name = req.body.name;
-        // req.session.logged   = true;
-        // req.session.message  = '';
-        // req.session.userId = user._id;
-        console.log(userEntry);
         res.send({
             status: 200,
             data: userEntry   
@@ -78,14 +52,8 @@ router.post('/login', async (req, res) => {
         const foundUser = await User.findOne({email: req.body.email.toLowerCase()});
         if(foundUser){
             if(bcrypt.compareSync(req.body.password, foundUser.password)){
-                // req.session.logged = true;
-                // req.session.email = foundUser.email;
-                // req.session.name = foundUser.name;
-                // req.session.userId = foundUser._id;
                 const payload = foundUser.email;
                 const token = jwt.sign(payload, "secret $tash");
-                // res.cookie('token', token, {httpOnly: true})
-                //     .sendStatus(200)
                 console.log("here's the user: ", foundUser.email);
                 res.send({
                     status: 200,
@@ -96,23 +64,14 @@ router.post('/login', async (req, res) => {
             } else {
                 req.session.message = 'Username or Password is Wrong';
             }
-    } else {
-            req.session.message = 'Username or Password is Wrong';
-            // res.redirect('/auth/login');
-    } // end of foundUser
+        } else {
+                req.session.message = 'Username or Password is Wrong';
+        }
     } catch(err) {
         console.log(err);
         res.send(err);
     }
 });
-
-// router.get("/cookie", async (req, res) => {
-//     if(req.session.logged){
-//         const user = await User.findById(req.session.userId);
-//         if(user.password = req.session.hashedPass)
-//         const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(12));
-//     }
-// })
   
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
