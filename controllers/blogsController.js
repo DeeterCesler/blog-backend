@@ -21,7 +21,7 @@ withAuth = async (req, res) => {
   }
 }
 
-router.get("/:email", checkForToken, async (req, res) => {
+router.get("/:email", async (req, res) => {
   const allblogs = await blog.find({user: req.params.email});
   // console.log("blogs: ", allblogs);
   res.json({
@@ -33,21 +33,6 @@ router.get("/:email", checkForToken, async (req, res) => {
 
 router.post("/new", checkForToken, async (req, res) => {
   var submittedblog = req.body;
-  var today = new Date(); //Today's Date
-  projectedDate = async (addedTime) => {
-      return new Date(today.getFullYear(),today.getMonth(),today.getDate()+ addedTime);
-  }
-  submittedblog["stage"] = 1;
-  submittedblog["firstReminder"] = await projectedDate(parseInt(submittedblog.firstReminder) * parseInt(submittedblog["firstReminderInterval"]));
-  submittedblog["secondReminder"] = await projectedDate(parseInt(submittedblog.secondReminder) * parseInt(submittedblog["secondReminderInterval"]));
-  if(submittedblog.thirdReminder){
-      submittedblog["thirdReminder"] = await projectedDate(parseInt(submittedblog.thirdReminder) * parseInt(submittedblog["thirdReminderInterval"]));
-  }
-  if(submittedblog.fourthReminder){
-      submittedblog["fourthReminder"] = await projectedDate(parseInt(submittedblog.fourthReminder) * parseInt(submittedblog["fourthReminderInterval"]));
-  }
-  submittedblog["repeatingReminderRhythm"] = await parseInt(submittedblog.repeatingReminder);
-  submittedblog["repeatingReminder"] = await projectedDate(parseInt(submittedblog.repeatingReminder) * parseInt(submittedblog["repeatingReminderRhythm"]));
   const dog = await withAuth(req, res)
   submittedblog["user"] = req.email;
   const newblog = await blog.create(submittedblog);
@@ -65,13 +50,6 @@ router.post("/new", checkForToken, async (req, res) => {
 router.put("/:id/edit", checkForToken, async (req, res) => {
   console.log(req.body)
   var submittedblog = req.body;
-  var today = new Date(); //Today's Date
-  projectedDate = async (addedTime) => {
-      return new Date(today.getFullYear(),today.getMonth(),today.getDate()+ addedTime);
-  }
-  submittedblog["repeatingReminderRhythm"] = await parseInt(submittedblog.repeatingReminderRhythm);
-  console.log(submittedblog.repeatingReminderRhythm, " and then ", submittedblog.repeatingReminder)
-  submittedblog["repeatingReminder"] = await projectedDate(parseInt(submittedblog["repeatingReminderRhythm"]));
   const checkEmail = await withAuth(req, res)
   submittedblog["user"] = await req.email;
   console.log(await blog.findById(req.params.id), " compared to " , submittedblog);
