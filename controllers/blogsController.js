@@ -21,9 +21,11 @@ withAuth = async (req, res) => {
   }
 }
 
-router.get("/:email", async (req, res) => {
-  const allblogs = await blog.find({user: req.params.email});
-  // console.log("blogs: ", allblogs);
+
+router.get("/email", async (req, res) => {
+  console.log("IT HIT HERE AT LEAST!")
+  const allblogs = await blog.find({user: "deeter.cesler@gmail.com"});
+  console.log("blogs: ", allblogs);
   res.json({
       status: 200,
       message: "Incoming blogs",
@@ -47,6 +49,26 @@ router.post("/new", checkForToken, async (req, res) => {
   });
 })
 
+router.get("/:path", async (req, res) => {
+  console.log("PATH GOT HIT")
+  const foundBlog = await blog.findOne({blogPath: req.params.path});
+  // console.log("blogs: ", allblogs);
+  if(foundBlog == undefined) {
+    console.log("IF GOT HIT")
+    res.json({
+      status: 404,
+      message: "Blog doesn't exist"
+    })
+  } else {
+    console.log("ELSE GOT HIT")
+    res.json({
+        status: 200,
+        message: "Found blog",
+        data: foundBlog
+    })
+  }
+});
+
 router.put("/:id/edit", checkForToken, async (req, res) => {
   console.log(req.body)
   var submittedblog = req.body;
@@ -66,11 +88,13 @@ router.put("/:id/edit", checkForToken, async (req, res) => {
   });
 })
 
-router.delete("/:id", checkForToken, async (req, res) => {
-  await blog.findByIdAndDelete(req.params.id);
+router.delete("/:name", checkForToken, async (req, res) => {
+  const deletedItem = await blog.findOne(req.params.blogName);
+  deletedItem.delete();
   res.json({
       status: 200,
-      message: "blog deleted"
+      message: "blog deleted",
+      data: deletedItem
   })
 })
 
