@@ -37,6 +37,9 @@ router.post("/new", checkForToken, async (req, res) => {
   var submittedblog = req.body;
   const dog = await withAuth(req, res)
   submittedblog["user"] = req.email;
+  if(submittedblog["blogPath"][0] == "/"){
+    submittedblog["blogPath"] = submittedblog["blogPath"].slice(1);
+  }
   const newblog = await blog.create(submittedblog);
   newblog.save();
   res.header(
@@ -88,8 +91,8 @@ router.put("/:id/edit", checkForToken, async (req, res) => {
   });
 })
 
-router.delete("/:name", checkForToken, async (req, res) => {
-  const deletedItem = await blog.findOne(req.params.blogName);
+router.delete("/:name", async (req, res) => {
+  const deletedItem = await blog.findOne({blogName: req.params.name});
   deletedItem.delete();
   res.json({
       status: 200,
