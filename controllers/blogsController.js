@@ -55,12 +55,16 @@ router.post("/new", checkForToken, async (req, res) => {
 router.get("/:path", async (req, res) => {
   console.log("PATH GOT HIT")
   const foundBlog = await blog.findOne({blogPath: req.params.path});
-  // console.log("blogs: ", allblogs);
   if(foundBlog == undefined) {
     console.log("IF GOT HIT")
     res.json({
       status: 404,
-      message: "Blog doesn't exist"
+      message: "Blog doesn't exist",
+      data: {
+        blogName: "NA",
+        blogSummary: "NA",
+        body: "NA"
+      }
     })
   } else {
     console.log("ELSE GOT HIT")
