@@ -37,7 +37,7 @@ router.post("/new", checkForToken, async (req, res) => {
   var submittedblog = req.body;
   const dog = await withAuth(req, res)
   submittedblog["user"] = req.email;
-  if(submittedblog["blogPath"][0] == "/"){
+  if(submittedblog["blogPath"][0] === "/"){
     submittedblog["blogPath"] = submittedblog["blogPath"].slice(1);
   }
   const newblog = await blog.create(submittedblog);
@@ -55,7 +55,7 @@ router.post("/new", checkForToken, async (req, res) => {
 router.get("/:path", async (req, res) => {
   console.log("PATH GOT HIT")
   const foundBlog = await blog.findOne({blogPath: req.params.path});
-  if(foundBlog == undefined) {
+  if(foundBlog === undefined) {
     console.log("IF GOT HIT")
     res.json({
       status: 404,
