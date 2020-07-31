@@ -24,7 +24,7 @@
     "mongoose": "^5.8.3",
     "node-redis-scripty": "0.0.5",
     "node-redis-warlock": "^0.2.0",
-    "nodemon": "^1.19.3",
+    "nodemon": "^2.0.4",
     "react": "^16.9.0",
     "react-cookie": "^4.0.1",
     "reactstrap": "^8.0.1",
