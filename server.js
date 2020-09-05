@@ -12,8 +12,6 @@ const requireLogin = require("./middleware/requireLogin");
 const checkForToken = require("./middleware/authToken");
 require('./db/db');
 require("dotenv").config();
-// simply requiring it apparently runs the scheduler
-// require("./scheduler");
 
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI,
