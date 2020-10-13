@@ -68,6 +68,9 @@ router.get("/:path", async (req, res) => {
     })
   } else {
     console.log("ELSE GOT HIT")
+    res.header(
+      {"Access-Control-Allow-Origin": "*"}
+    )
     res.json({
         status: 200,
         message: "Found blog",
